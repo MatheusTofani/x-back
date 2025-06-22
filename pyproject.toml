@@ -1,0 +1,27 @@
+[project]
+name = "back"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Matheus",email = "matheus271112@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django (>=5.2.3,<6.0.0)",
+    "djangorestframework (>=3.16.0,<4.0.0)",
+    "gunicorn (>=20.1.0,<21.0.0)",
+    "djangorestframework-simplejwt (>=5.5.0,<6.0.0)",
+    "django-cors-headers (>=4.7.0,<5.0.0)",
+    "dj-database-url (>=3.0.0,<4.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)"
+]
+
+
+[tool.poetry]
+packages = [{include = "back", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
