@@ -3,8 +3,9 @@ from rest_framework import permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated  
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, SuggestedUserSerializer
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -41,3 +42,12 @@ class UserUpdateView(APIView):
 
         user.save()
         return Response({"detail": "Perfil atualizado com sucesso!"})
+    
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def recent_users(request):
+    me = request.user
+    users = User.objects.exclude(id=me.id).order_by("-date_joined")[:5]
+    serializer = SuggestedUserSerializer(users, many=True, context={"request": request})
+    return Response(serializer.data)
